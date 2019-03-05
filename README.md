@@ -4,7 +4,7 @@
 ![Light Streaks](https://i.imgur.com/Ww8H2lx.jpg)
 
 
-This effect is based on the process of bright light scattering through the lens elements of a camera. The light streaks are generated at small apertures (lens opening) where the number/shape of streaks depends on the aperture blades and blade shape of the lens respectively.
+This effect is based on the process of bright light scattering through the lens elements of a camera. The light streaks are generated at small apertures (lens opening) where the number/shape of streaks depends on the aperture blades and aperture blade shape in the lens respectively.
 
 ---
 
