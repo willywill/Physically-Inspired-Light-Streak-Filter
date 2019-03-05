@@ -30,5 +30,5 @@ Place [Insert Script Name] onto your camera, configure the settings as shown bel
 
 ------
 
-*This code was adapated from and based on the implementation [here.](KawaseLightStreakUnity)*
+*This code was adapated from and based on the implementation [here.](https://github.com/nobnak/KawaseLightStreakUnity)*
   
