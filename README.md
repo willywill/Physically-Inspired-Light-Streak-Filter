@@ -7,10 +7,12 @@
 
 ### Getting Started
 
-> **Note:**
+> **NOTE:**
 It is highly recommended that you use this with HDR, a Tonemapper of your liking, and Linear Color Space.
 
-Place [Insert Script Name] onto your camera, configure the settings as shown below as you wish.
+This effect is based on the process of bright light scattering through the lens elements of a camera. The light streaks are generated at small apertures (lens opening) where the number/shape of streaks depends on the aperture blades and blade shape of the lens respectively.
+
+Simply place [Insert Script Name] onto your camera, configure the settings as shown below as you wish.
 
 #### Settings
 ------
@@ -29,6 +31,10 @@ Place [Insert Script Name] onto your camera, configure the settings as shown bel
 | Spectrum Texture      | Diffraction modulation texture |
 
 ------
+
+#### Further Reading
+
+[List of Sources]
 
 *This code was adapated from and based on the implementation [here.](https://github.com/nobnak/KawaseLightStreakUnity)*
   
