@@ -13,7 +13,7 @@ This effect is based on the process of bright light scattering through the lens 
 > **NOTE:**
 It is highly recommended that you use this with HDR, a Tonemapper of your liking, and Linear Color Space.
 
-Simply place [Insert Script Name] onto your camera, configure the settings as shown below as you wish.
+Simply place `LightStreakFilter.cs` onto your camera, configure the settings as shown below as you wish.
 
 #### Settings
 ------
