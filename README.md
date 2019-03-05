@@ -35,7 +35,8 @@ Simply place `LightStreakFilter.cs` onto your camera, configure the settings as 
 
 #### Further Reading
 
-- [Frame Buffer Postprocessing Effects in DOUBLE-S.T.E.A.L]
+- Frame Buffer Postprocessing Effects in DOUBLE-S.T.E.A.L
+- [Real-Time Dynamic Simulation of the Scattering in the Human Eye](https://people.mpi-inf.mpg.de/~ritschel/Papers/TemporalGlare.pdf)
 - [Physically-Based Glare Effects for Digital Images](http://luthuli.cs.uiuc.edu/~daf/courses/rendering/papers3/spencer95.pdf)
 - [Real-time Rendering of High Quality Glare Images](https://www.scitepress.org/papers/2006/13548/13548.pdf)
 - [Glare Generation Based on Wave Optics](https://pdfs.semanticscholar.org/f3cb/326ea861899cbbc4197078360c5e076fd1e5.pdf)
