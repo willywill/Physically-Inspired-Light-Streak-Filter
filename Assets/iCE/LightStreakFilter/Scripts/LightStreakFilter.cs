@@ -53,23 +53,23 @@ public class LightStreakFilter : MonoBehaviour
 
 	private void OnEnable ()
 	{
-		glareShader = Shader.Find("Hidden/iCE/LightStreakFilter");
-    
-		if (!glareMaterial)
-    {
-      glareMaterial = new Material(glareShader);
-      glareMaterial.hideFlags = HideFlags.HideAndDontSave;
-    }
+			glareShader = Shader.Find("Hidden/iCE/LightStreakFilter");
+			
+			if (!glareMaterial)
+			{
+				glareMaterial = new Material(glareShader);
+				glareMaterial.hideFlags = HideFlags.HideAndDontSave;
+			}
 
-		if (!currentCamera)
-		{
-			currentCamera = GetComponent<Camera>();
-		}
+			if (!currentCamera)
+			{
+				currentCamera = GetComponent<Camera>();
+			}
 
-		if (!spectrumTexture)
-		{
-			spectrumTexture = Resources.Load("SpectrumTexture") as Texture;
-		}
+			if (!spectrumTexture)
+			{
+				spectrumTexture = Resources.Load("SpectrumTexture") as Texture;
+			}
 	}
 
 	private void OnValidate ()
@@ -79,14 +79,14 @@ public class LightStreakFilter : MonoBehaviour
 
 	private float CameraRotationAngle ()
 	{
-		return currentCamera.transform.rotation.y;
+			return currentCamera.transform.rotation.y;
 	}
 
 	private void Swap<T> (ref T first, ref T second)
 	{
-		T temp = first;
-		first = second;
-		second = temp;
+			T temp = first;
+			first = second;
+			second = temp;
 	}
 
 	private RenderTexture HalfResolution (RenderTexture source, FilterMode filterMode = FilterMode.Bilinear)
@@ -104,58 +104,58 @@ public class LightStreakFilter : MonoBehaviour
 
 	private RenderTexture BuildMipPyrimid (RenderTexture source, int mipLevel)
 	{
-		RenderTexture mipChain = source;
+			RenderTexture mipChain = source;
 
-		if (mipLevel > 0) 
-		{
-			mipChain = HalfResolution(source);
-			for (int i = 1; i < mipLevel; i++) 
+			if (mipLevel > 0) 
 			{
-				RenderTexture currentMip = HalfResolution(mipChain);
-				RenderTexture.ReleaseTemporary(mipChain);
-				mipChain = currentMip;
+				mipChain = HalfResolution(source);
+				for (int i = 1; i < mipLevel; i++) 
+				{
+					RenderTexture currentMip = HalfResolution(mipChain);
+					RenderTexture.ReleaseTemporary(mipChain);
+					mipChain = currentMip;
+				}
 			}
-		}
 
-		return mipChain;
+			return mipChain;
 	}
 
 	private void LinkStreakParameters (float offset, float streakAttenuation, float streakDirection)
 	{
-		if (spectrumTexture) 
-		{
-				glareMaterial.SetTexture("_SpectrumTex", spectrumTexture);
-		}
+			if (spectrumTexture) 
+			{
+					glareMaterial.SetTexture("_SpectrumTex", spectrumTexture);
+			}
 
-		glareMaterial.SetFloat("_Offset", offset);
-		glareMaterial.SetFloat("_Attenuation", streakAttenuation);
-		glareMaterial.SetVector("_Direction", new Vector4(Mathf.Cos(streakDirection), Mathf.Sin(streakDirection), 0, 0));
+			glareMaterial.SetFloat("_Offset", offset);
+			glareMaterial.SetFloat("_Attenuation", streakAttenuation);
+			glareMaterial.SetVector("_Direction", new Vector4(Mathf.Cos(streakDirection), Mathf.Sin(streakDirection), 0, 0));
 	}
 
 	private void LinkGlowParameters (float glowAmount, float glowThreshold, float diffraction, int power)
 	{
-		glareMaterial.SetFloat("_Gain", glowAmount);
-		glareMaterial.SetFloat("_Threshold", glowThreshold);
-		glareMaterial.SetFloat("_Diffraction", diffraction);
-		glareMaterial.SetInt("_Boundary", power * 4);
+			glareMaterial.SetFloat("_Gain", glowAmount);
+			glareMaterial.SetFloat("_Threshold", glowThreshold);
+			glareMaterial.SetFloat("_Diffraction", diffraction);
+			glareMaterial.SetInt("_Boundary", power * 4);
 	}
 
 	private void ReleaseGlareTexture ()
 	{
-		if (glareRenderTexture)
-		{
-			if (Application.isPlaying)
+			if (glareRenderTexture)
 			{
-				Destroy(glareRenderTexture);
+				if (Application.isPlaying)
+				{
+					Destroy(glareRenderTexture);
+				}
+				
+				DestroyImmediate(glareRenderTexture);
 			}
-			
-			DestroyImmediate(glareRenderTexture);
-		}
 	}
 
 	private void ClearGlareTexture (RenderTexture target)
 	{
-			var old = RenderTexture.active;
+			RenderTexture old = RenderTexture.active;
 			RenderTexture.active = target;
 			GL.Clear(true, true, Color.clear);
 			RenderTexture.active = old;
@@ -248,8 +248,19 @@ public class LightStreakFilter : MonoBehaviour
 			RenderGlare(downsample, glareRenderTexture);
 
 			// Add the effect to the frame buffer, clear the framebuffer first as we are doing a blend
+			RenderTexture flare = RenderTexture.GetTemporary(source.width, source.height, 0, RenderTextureFormat.ARGBHalf);
+
 			Graphics.Blit(source, destination);
 			Graphics.Blit(glareRenderTexture, destination, glareMaterial, (int)RenderPass.Compose);
+
+			
+			Graphics.Blit(source, flare, glareMaterial, 3);
+
+			glareMaterial.SetTexture("MainTex", source);
+			glareMaterial.SetTexture("_FlareTex", flare);
+			Graphics.Blit(flare, destination, glareMaterial, 4);
+
+			RenderTexture.ReleaseTemporary(flare);
 
 			if ((int)quality > 0) RenderTexture.ReleaseTemporary(downsample);
 		}
@@ -257,6 +268,6 @@ public class LightStreakFilter : MonoBehaviour
 
   private void OnDestroy ()
   {
-		ReleaseGlareTexture();
+			ReleaseGlareTexture();
   }
 }
