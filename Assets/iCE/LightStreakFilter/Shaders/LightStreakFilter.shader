@@ -41,5 +41,26 @@
 			#include "LightStreakFilter.cginc"
 			ENDCG
 		}
+
+		// Pass 3: Compose
+		Pass
+		{
+			CGPROGRAM
+			#pragma vertex vert_img
+			#pragma fragment flare
+			#include "LightStreakFilter.cginc"
+			ENDCG
+		}
+
+		// Pass 4: Compose
+		Pass
+		{
+			Blend One One
+			CGPROGRAM
+			#pragma vertex vert_img
+			#pragma fragment final
+			#include "LightStreakFilter.cginc"
+			ENDCG
+		}
 	}
 }
